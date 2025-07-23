@@ -27,9 +27,12 @@ int  print_str(va_list *list)
 	return (result);
 }
 /**
- * test 1: "z" \\ [z][\0]
- * test 2: "y%s" \\[y][arg_1][\0]
- * test 3: "String %s some other characters"
+ * Current state: prints a string without new line
+ * 		  also prints literal %s - needs to be fixed
+ * 		  handle case of %x (ie unknown specifiers)
+ * 		  handle other errors
+ * 		  fix betty documentation
+ * 		  handle "%" literal print
  */
 
 int _printf(const char *format, ...)
