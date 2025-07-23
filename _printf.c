@@ -23,7 +23,7 @@ int  print_str(va_list *list)
 	int result = 0;
 
 	str = va_arg(*list, char *);
-        result = write(1, &str, strlen(str));
+        result = write(1, str, strlen(str));
 	return (result);
 }
 /**
@@ -52,11 +52,11 @@ int _printf(const char *format, ...)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
-					op[j].f(&list);
+					op[k].f(&list);
 				}
 				k++;
 			}
-			write(1, &format[i], strlen(&format[i]));  //check strlen necessity here, check later
+			write(1, &format[i], 1);  //check strlen necessity here, check later
 			i++;
 		}
 	}
@@ -68,8 +68,8 @@ int main(void)
 {
 	char *a = "variable a";
 
-	_printf("hello!");
-	_printf("string %s a", a);
+//	_printf("hello!");
+	_printf("string %s b", a);
 	
 	return (0);
 }
