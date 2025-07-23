@@ -9,9 +9,11 @@ int _printf(const char *format, ...);
 typedef struct print_op 
 {
 	const char *key;
-	void (*f)(va_list *list);
+	int (*f)(va_list *list);
 } print_op;
 
+int  print_char(va_list *list);
+int  print_str(va_list *list);
 
 #endif
 
