@@ -56,6 +56,7 @@ int _printf(const char *format, ...)
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
 					op[k].f(&list);
+					i = i + 2;
 				}
 				k++;
 			}
