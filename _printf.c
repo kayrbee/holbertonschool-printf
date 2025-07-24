@@ -15,7 +15,6 @@ int  print_char(va_list *list)
 
 	ch = va_arg(*list, int);
         result = write(1, &ch, 1);
-	
 	return (result);
 }
 /**
@@ -45,6 +44,8 @@ int _printf(const char *format, ...)
 		{"s", print_str},
 	};
 	va_list list;
+	int flag = 0;
+	int len = 0, substr_len = 0, total_len = 0, counter = 0;
 
 	va_start(list, format);
 	if (format != NULL)
@@ -57,22 +58,29 @@ int _printf(const char *format, ...)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
-					op[k].f(&list);
-					i = i + 2;
+					flag = 1;
+					counter++;
+					substr_len = op[k].f(&list);
+					len = len + substr_len;
 				}
 
 				if (format[i] == '%' && format[j] == '%')
 				{
+					flag = 1;
 					write(1, &format[i], 1);
-					i = i + 2;
 				}
 				k++;
 			}
-			write(1, &format[i], 1);
+			if (flag != 1)
+				write(1, &format[i], 1);
+			else
+				i = i + 1;
 			i++;
+			flag = 0;
 		}
 	}
 	va_end(list);
-	return (i);
+	total_len = (i + len) - (counter * 2);
+	return (total_len);
 }
 
