@@ -28,7 +28,14 @@ int  print_str(va_list *list)
 	int result = 0;
 
 	str = va_arg(*list, char *);
-        result = write(1, str, strlen(str));
+	if (str == NULL)
+	{
+		result = write(1, "(null)", 6);
+	}
+	else
+	{
+		result = write(1, str, strlen(str));
+	}
 	return (result);
 }
 /**
