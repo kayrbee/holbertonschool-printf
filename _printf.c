@@ -31,7 +31,6 @@ int  print_str(va_list *list)
  * 		  handle case of %x (ie unknown specifiers)
  * 		  handle other errors
  * 		  fix betty documentation
- * 		  handle "%" literal print
  */
 
 int _printf(const char *format, ...)
@@ -65,7 +64,7 @@ int _printf(const char *format, ...)
 				}
 				k++;
 			}
-			write(1, &format[i], 1);  //check strlen necessity here, check later
+			write(1, &format[i], 1);
 			i++;
 		}
 	}
@@ -73,13 +72,3 @@ int _printf(const char *format, ...)
 	return (-1);
 }
 
-int main(void)
-{
-	char *a = "variable a";
-
-//	_printf("hello!");
-//	_printf("string %s b\n", a);
-	_printf("string %% b\n", a);
-	
-	return (0);
-}
