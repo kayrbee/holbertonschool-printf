@@ -74,15 +74,6 @@ int _printf(const char *format, ...)
 	va_end(list);
 	counter = counter + (i - 1);
 	printf("%d\n", counter);
-	return (i);
+	return (counter);
 }
 
-int main(void)
-{
-	char a = 'a';
-	char *str = "Hello!";
-
-	_printf("%c\n", a);
-	_printf("%s\n", str);
-	return (0);
-}
