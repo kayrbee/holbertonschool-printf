@@ -4,6 +4,11 @@
 #include <unistd.h>
 #include <string.h>
 /**
+ * TO DO: Fix counter (broke after %% fix)
+ * 	  Handle error when string is "%"
+ */
+
+/**
  * print_char - prints a character to standard output
  * @list: a pointer a list containing the substring
  * Return: number of characters 
