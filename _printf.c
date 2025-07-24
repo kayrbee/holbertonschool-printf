@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <string.h>
 /**
+ * print_char - prints a character to standard output
+ * @list: a pointer a list containing the substring
+ * Return: number of characters 
  */
 int  print_char(va_list *list)
 {
@@ -16,6 +19,9 @@ int  print_char(va_list *list)
 	return (result);
 }
 /**
+ * print_str - prints a string to standard output
+ * @list: a pointer a list containing the substring
+ * Return: number of characters 
  */
 int  print_str(va_list *list)
 {
@@ -27,12 +33,10 @@ int  print_str(va_list *list)
 	return (result);
 }
 /**
- * Current state: prints a string without new line
- * 		  handle case of %x (ie unknown specifiers)
- * 		  handle other errors
- * 		  fix betty documentation
- */
-
+ * _printf - produces output according to a format
+ * @list: a pointer a list containing the substring
+ * Return: number of characters 
+*/
 int _printf(const char *format, ...)
 {
 	int i = 0, j, k = 0;
