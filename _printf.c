@@ -61,6 +61,11 @@ int _printf(const char *format, ...)
 		{
 			j = i + 1;
 			k = 0;
+			if (format[i] == '%' && format[j] == '%')
+			{
+				flag = 1;
+				write(1, &format[i], 1);
+			}
 			while (k < 2)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
@@ -69,12 +74,6 @@ int _printf(const char *format, ...)
 					counter++;
 					substr_len = op[k].f(&list);
 					len = len + substr_len;
-				}
-
-				if (format[i] == '%' && format[j] == '%')
-				{
-					flag = 1;
-					write(1, &format[i], 1);
 				}
 				k++;
 			}
@@ -88,6 +87,18 @@ int _printf(const char *format, ...)
 	}
 	va_end(list);
 	total_len = (i + len) - (counter * 2);
+	printf("total_len: %d\n, i: %d", total_len, i);
 	return (total_len);
 }
 
+int main(void)
+{
+	char *s;
+
+	s = "test";
+
+	_printf("%s\n", s);
+	_printf("str %%\n");
+
+	return (0);
+}
