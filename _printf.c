@@ -27,7 +27,7 @@ int  print_str(va_list *list)
 	return (result);
 }
 /**
- * Current state: prints a string without new line
+ * Current state: prints a string 
  * 		  handle case of %x (ie unknown specifiers)
  * 		  handle other errors
  * 		  fix betty documentation
@@ -41,6 +41,7 @@ int _printf(const char *format, ...)
 		{"s", print_str},
 	};
 	va_list list;
+	int counter = 0;
 
 	va_start(list, format);
 	if (format != NULL)
@@ -53,14 +54,16 @@ int _printf(const char *format, ...)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
-					op[k].f(&list);
+					counter = counter + op[k].f(&list);
 					i = i + 2;
+					counter = counter - 2;
 				}
 
 				if (format[i] == '%' && format[j] == '%')
 				{
-					write(1, &format[i], 1);
+					counter = counter + write(1, &format[i], 1);
 					i = i + 2;
+					counter = counter - 2;
 				}
 				k++;
 			}
@@ -69,6 +72,17 @@ int _printf(const char *format, ...)
 		}
 	}
 	va_end(list);
+	counter = counter + (i - 1);
+	printf("%d\n", counter);
 	return (i);
 }
 
+int main(void)
+{
+	char a = 'a';
+	char *str = "Hello!";
+
+	_printf("%c\n", a);
+	_printf("%s\n", str);
+	return (0);
+}
