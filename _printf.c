@@ -28,11 +28,9 @@ int  print_str(va_list *list)
 }
 /**
  * Current state: prints a string without new line
- * 		  also prints literal %s - needs to be fixed
  * 		  handle case of %x (ie unknown specifiers)
  * 		  handle other errors
  * 		  fix betty documentation
- * 		  handle "%" literal print
  */
 
 int _printf(const char *format, ...)
@@ -56,10 +54,17 @@ int _printf(const char *format, ...)
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
 					op[k].f(&list);
+					i = i + 2;
+				}
+
+				if (format[i] == '%' && format[j] == '%')
+				{
+					write(1, &format[i], 1);
+					i = i + 2;
 				}
 				k++;
 			}
-			write(1, &format[i], 1);  //check strlen necessity here, check later
+			write(1, &format[i], 1);
 			i++;
 		}
 	}
@@ -67,12 +72,3 @@ int _printf(const char *format, ...)
 	return (-1);
 }
 
-int main(void)
-{
-	char *a = "variable a";
-
-//	_printf("hello!");
-	_printf("string %s b", a);
-	
-	return (0);
-}
