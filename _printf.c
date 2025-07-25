@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 /**
  * print_char - prints a character to standard output
  * @list: a pointer a list containing the substring
