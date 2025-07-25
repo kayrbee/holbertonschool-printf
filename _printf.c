@@ -41,7 +41,7 @@ int  print_str(va_list *list)
 }
 /**
  * print_int - prints integers to stdout
- * @list: a pointer to a lst containing the substring
+ * @list: a pointer to a list containing the substring
  * Return: number of characters
  */
 int print_int(va_list *list)
@@ -66,13 +66,14 @@ int print_int(va_list *list)
 	if (absolute_number == 0)
 	{
 		temp[i] = '0';
-	}
-	else
+		i++; 
+	} else
 	{
 		while (absolute_number > 0)
 		{
 			temp[i] = (absolute_number % 10) + '0';
 			absolute_number = absolute_number / 10;
+			i++;
 		}
 	}
 	/* Write the number in correct order */
@@ -82,9 +83,10 @@ int print_int(va_list *list)
 		count += write(1, &temp[j], 1);
 		j--;
 	}
+	return (count); 
 }
 /**
- * get_function - returns a pointer to correct print_ function based on a specifier
+ * get_function - returns a pointer to correct printing function based on a specifier
  * @c: format specifier ('c', 's'c 'd', 'i')
  * Return: pointer to the corresponding function
  */
@@ -99,7 +101,7 @@ int (*get_function(char c))(va_list *)
 	int l = 0;
 	while (op[l].key != NULL)
 	{
-		if(op[l].key[0] == 'c')
+		if(op[l].key[0] == c)
 			return (op[l].f);
 		l++;
 	}
@@ -112,38 +114,38 @@ int (*get_function(char c))(va_list *)
 */
 int _printf(const char *format, ...)
 {
-	int i = 0, j, flag = 0, substr_len = 0, printed = 0;
+	int i = 0, flag = 0, printed = 0;
 	va_list list;
 	va_start(list, format);
 	if (format == NULL)
 		exit(98);
 	while (format[i] != '\0')
 	{
-		j = 0, flag = 0;
+		flag = 0;
 		if (format[i] == '%' && format[i + 1] == '\0')
 			exit(99);
 		if (format[i] == '%' && format[i + 1] == '%')
 		{
 			flag = 1;
 			printed += write(1, "%", 1);
+			i = i + 2;
 		}
-		while (j < 2)
+		if (format[i] == '%')
 		{
-			if (format[i] == '%' && *op[j].key == format[i + 1])
+			int (*func)(va_list *);
+			func = get_function(format[i + 1]);
+			if (func != NULL)
 			{
 				flag = 1;
-				substr_len = op[j].f(&list);
-				printed += substr_len;
+				printed += func(&list);
+				i = i + 2;
 			}
-			j++;
 		}
 		if (flag != 1)
 		{
 			printed += write(1, &format[i], 1);
 			i++;
 		}
-		else
-			i = i + 2;
 	}
 	va_end(list);
 	return (printed);
