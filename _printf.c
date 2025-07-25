@@ -55,16 +55,12 @@ int _printf(const char *format, ...)
 
 	va_start(list, format);
 	if (format == NULL)
-	{
 		exit(98);
-	}
 	while (format[i] != '\0')
 	{
 		j = 0, flag = 0;
 		if (format[i] == '%' && format[i + 1] == '\0')
-		{
 			exit(99);
-		}
 		if (format[i] == '%' && format[i + 1] == '%')
 		{
 			flag = 1;
@@ -91,3 +87,4 @@ int _printf(const char *format, ...)
 	va_end(list);
 	return (printed);
 }
+
