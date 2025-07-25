@@ -6,7 +6,7 @@ Test cases for exercise 0: solve for %c and %s
 	_printf("String: [%s]\n", "I am a string !");
 
 ### To Do
-See tests/to-do-list
+See [tests/to-do-list](https://github.com/kayrbee/holbertonschool-printf/blob/kb/refactor/tests/to-do-list)
 
 ### Logic
 #### Function protoype
