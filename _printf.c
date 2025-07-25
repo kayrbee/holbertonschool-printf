@@ -4,14 +4,9 @@
 #include <unistd.h>
 #include <string.h>
 /**
- * TO DO: Fix counter (broke after %% fix)
- * 	  Handle error when string is "%"
- */
-
-/**
  * print_char - prints a character to standard output
  * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * Return: number of characters
  */
 int  print_char(va_list *list)
 {
@@ -19,13 +14,13 @@ int  print_char(va_list *list)
 	int result = 0;
 
 	ch = va_arg(*list, int);
-        result = write(1, &ch, 1);
+	result = write(1, &ch, 1);
 	return (result);
 }
 /**
  * print_str - prints a string to standard output
  * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * Return: number of characters
  */
 int  print_str(va_list *list)
 {
@@ -44,26 +39,20 @@ int  print_str(va_list *list)
 	return (result);
 }
 /**
- * _printf - produces output according to a format
- * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * _printf - produces output according to a format specifier
+ * @format: the string to print, with or without format specifiers
+ * Return: number of characters printed
 */
 int _printf(const char *format, ...)
 {
-	int i = 0, j, k = 0;
-	int flag = 0;
-	int substr_len = 0;
-	int printed = 0;
-
+	int i = 0, j, k = 0, flag = 0, substr_len = 0, printed = 0;
 	va_list list;
-
 	print_op op[] = {
 		{"c", print_char},
 		{"s", print_str},
 	};
 
 	va_start(list, format);
-	
 	if (format != NULL)
 	{
 		while (format[i] != '\0')
@@ -73,10 +62,9 @@ int _printf(const char *format, ...)
 
 			if (format[i] == '%' && format[j] == '%')
 			{
-				printed += write(1, "%", 1);	//removed flag from this sec bc we need newline to print
+				printed += write(1, "%", 1);
 				i += 2;
 			}
-
 			while (k < 2)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
@@ -88,31 +76,14 @@ int _printf(const char *format, ...)
 				}
 				k++;
 			}
-
 			if (flag != 1)
 				printed += write(1, &format[i], 1);
-			
 			if (flag == 1)
 				flag = 0;
-			
 			i++;
 		}
 	}
 	va_end(list);
-	printf("count: %d\n", printed);
 	return (printed);
 }
 
-int main(void)
-{
-	char a = 'z';
-	char *str;
-
-	str = "test";
-
-	_printf("%c\n", a);
-	_printf("%s\n", str);
-	_printf("str %%\n");
-	_printf("Applessten\n");
-	return (0);
-}
