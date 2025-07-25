@@ -1,0 +1,18 @@
+### Task 1
+Handle the following conversion specifiers:
+
+	d
+	i
+
+#### Kat's late Friday afternoon thoughts
+- Add tests for d and i to our test main() function
+- Add d and i entries to the op[] array
+- Add a function prototype for print_d to main.h
+- define a function for print_d
+	NB: this function will need to do some magic to handle values > INT_MAX
+- ...unsure if we'll need a separate function for i as well
+- create a separate file to house all of the print_* helper functions
+	NB: avoids putting >5 function definitions  in any given file
+- create a helper function to handle the logic of function pointers
+	NB: shortens _print.f and avoids hitting the max line limit
+
