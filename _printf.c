@@ -51,49 +51,55 @@ int  print_str(va_list *list)
 int _printf(const char *format, ...)
 {
 	int i = 0, j, k = 0;
+	int flag = 0;
+	int substr_len = 0;
+	int printed = 0;
+
+	va_list list;
+
 	print_op op[] = {
 		{"c", print_char},
 		{"s", print_str},
 	};
-	va_list list;
-	int flag = 0;
-	int len = 0, substr_len = 0, total_len = 0, counter = 0;
 
 	va_start(list, format);
+	
 	if (format != NULL)
 	{
 		while (format[i] != '\0')
 		{
 			j = i + 1;
 			k = 0;
+
 			if (format[i] == '%' && format[j] == '%')
 			{
-				flag = 1;
-				write(1, &format[i], 1);
+				printed += write(1, "%", 1);	//removed flag from this sec bc we need newline to print
+				i += 2;
 			}
+
 			while (k < 2)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
 					flag = 1;
-					counter++;
 					substr_len = op[k].f(&list);
-					len = len + substr_len;
+					printed += substr_len;
 				}
 				k++;
 			}
+
 			if (flag != 1)
-				write(1, &format[i], 1);
-			else
-				i = i + 1;
+				printed += write(1, &format[i], 1);
+			
+			if (flag == 1)
+				flag = 0;
+			
 			i++;
-			flag = 0;
 		}
 	}
 	va_end(list);
-	total_len = (i + len) - (counter * 2);
-	printf("total_len: %d\n, i: %d", total_len, i);
-	return (total_len);
+	printf("count: %d\n", printed);
+	return (printed);
 }
 
 int main(void)
@@ -104,6 +110,6 @@ int main(void)
 
 	_printf("%s\n", s);
 	_printf("str %%\n");
-
+	_printf("Applessten\n");
 	return (0);
 }
