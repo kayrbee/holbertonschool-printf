@@ -6,7 +6,7 @@
 /**
  * print_char - prints a character to standard output
  * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * Return: number of characters
  */
 int  print_char(va_list *list)
 {
@@ -14,13 +14,13 @@ int  print_char(va_list *list)
 	int result = 0;
 
 	ch = va_arg(*list, int);
-        result = write(1, &ch, 1);
+	result = write(1, &ch, 1);
 	return (result);
 }
 /**
  * print_str - prints a string to standard output
  * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * Return: number of characters
  */
 int  print_str(va_list *list)
 {
@@ -39,20 +39,18 @@ int  print_str(va_list *list)
 	return (result);
 }
 /**
- * _printf - produces output according to a format
- * @list: a pointer a list containing the substring
- * Return: number of characters 
+ * _printf - produces output according to a format specifier
+ * @format: the string to print, with or without format specifiers
+ * Return: number of characters printed
 */
 int _printf(const char *format, ...)
 {
-	int i = 0, j, k = 0;
+	int i = 0, j, k = 0, flag = 0, substr_len = 0, printed = 0;
+	va_list list;
 	print_op op[] = {
 		{"c", print_char},
 		{"s", print_str},
 	};
-	va_list list;
-	int flag = 0;
-	int len = 0, substr_len = 0, total_len = 0, counter = 0;
 
 	va_start(list, format);
 	if (format != NULL)
@@ -61,33 +59,31 @@ int _printf(const char *format, ...)
 		{
 			j = i + 1;
 			k = 0;
+
+			if (format[i] == '%' && format[j] == '%')
+			{
+				printed += write(1, "%", 1);
+				i += 2;
+			}
 			while (k < 2)
 			{
 				if (format[i] == '%' && *op[k].key == format[j])
 				{
 					flag = 1;
-					counter++;
 					substr_len = op[k].f(&list);
-					len = len + substr_len;
-				}
-
-				if (format[i] == '%' && format[j] == '%')
-				{
-					flag = 1;
-					write(1, &format[i], 1);
+					printed += substr_len;
+					i = i + 1;
 				}
 				k++;
 			}
 			if (flag != 1)
-				write(1, &format[i], 1);
-			else
-				i = i + 1;
+				printed += write(1, &format[i], 1);
+			if (flag == 1)
+				flag = 0;
 			i++;
-			flag = 0;
 		}
 	}
 	va_end(list);
-	total_len = (i + len) - (counter * 2);
-	return (total_len);
+	return (printed);
 }
 
