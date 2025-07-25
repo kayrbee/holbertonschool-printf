@@ -60,6 +60,8 @@ int _printf(const char *format, ...)
 		while (format[i] != '\0')
 		{
 			j = 0, flag = 0;
+			if (format[i] == '%' && format[i + 1] == '\0')
+				return (1);
 			if (format[i] == '%' && format[i + 1] == '%')
 			{
 				flag = 1;
