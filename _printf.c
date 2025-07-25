@@ -45,7 +45,7 @@ int  print_str(va_list *list)
 */
 int _printf(const char *format, ...)
 {
-	int i = 0, j, k = 0, flag = 0, substr_len = 0, printed = 0;
+	int i = 0, j, flag = 0, substr_len = 0, printed = 0;
 	va_list list;
 	print_op op[] = {
 		{"c", print_char},
@@ -57,30 +57,29 @@ int _printf(const char *format, ...)
 	{
 		while (format[i] != '\0')
 		{
-			j = i + 1;
-			k = 0;
-
-			if (format[i] == '%' && format[j] == '%')
+			j = 0, flag = 0;
+			if (format[i] == '%' && format[i + 1] == '%')
 			{
+				flag = 1;
 				printed += write(1, "%", 1);
-				i += 2;
 			}
-			while (k < 2)
+			while (j < 2)
 			{
-				if (format[i] == '%' && *op[k].key == format[j])
+				if (format[i] == '%' && *op[j].key == format[i + 1])
 				{
 					flag = 1;
-					substr_len = op[k].f(&list);
+					substr_len = op[j].f(&list);
 					printed += substr_len;
-					i = i + 1;
 				}
-				k++;
+				j++;
 			}
 			if (flag != 1)
+			{
 				printed += write(1, &format[i], 1);
-			if (flag == 1)
-				flag = 0;
-			i++;
+				i++;
+			}
+			else
+				i = i + 2;
 		}
 	}
 	va_end(list);
