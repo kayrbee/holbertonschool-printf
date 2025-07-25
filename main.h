@@ -14,6 +14,8 @@ typedef struct print_op
 
 int  print_char(va_list *list);
 int  print_str(va_list *list);
+int print_int(va_list *list);
+int (*get_function(char c))(va_list *);
 
 #endif
 
