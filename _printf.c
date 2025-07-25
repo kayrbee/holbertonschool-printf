@@ -84,6 +84,7 @@ int _printf(const char *format, ...)
 					flag = 1;
 					substr_len = op[k].f(&list);
 					printed += substr_len;
+					i = i + 1;
 				}
 				k++;
 			}
@@ -104,11 +105,13 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	char *s;
+	char a = 'z';
+	char *str;
 
-	s = "test";
+	str = "test";
 
-	_printf("%s\n", s);
+	_printf("%c\n", a);
+	_printf("%s\n", str);
 	_printf("str %%\n");
 	_printf("Applessten\n");
 	return (0);
