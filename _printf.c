@@ -47,6 +47,7 @@ int  print_str(va_list *list)
 int print_int(va_list *list)
 {
 	int count = 0;
+	int i = 0; int j = 0;
 	unsigned absolute_number;
 
 	int original_number = va_arg(*list, int);
@@ -60,6 +61,26 @@ int print_int(va_list *list)
 	else
 	{
 		absolute_number = original_number;
+	}
+	/* Convert number to character in reverse order */
+	if (absolute_number == 0)
+	{
+		temp[i] = '0';
+	}
+	else
+	{
+		while (absolute_number > 0)
+		{
+			temp[i] = (absolute_number % 10) + '0';
+			absolute_number = absolute_number / 10;
+		}
+	}
+	/* Write the number in correct order */
+	j = i - 1;
+	while (j >= 0)
+	{
+		count += write(1, &temp[j], 1);
+		j--;
 	}
 }
 /**
