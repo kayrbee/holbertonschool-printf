@@ -5,6 +5,9 @@ Test cases for exercise 0: solve for %c and %s
 	_printf("Character: [%c]\n", 'H');
 	_printf("String: [%s]\n", "I am a string !");
 
+### To Do
+See tests/to-do-list
+
 ### Logic
 #### Function protoype
 	int _printf(const char *format, ...);
