@@ -6,7 +6,7 @@
 int _printf(const char *format, ...);
 
 /* create a struct */
-typedef struct print_op 
+typedef struct print_op
 {
 	const char *key;
 	int (*f)(va_list *list);

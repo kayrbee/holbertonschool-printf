@@ -55,44 +55,36 @@ int _printf(const char *format, ...)
 
 	va_start(list, format);
 	if (format == NULL)
+		exit(98);
+	while (format[i] != '\0')
 	{
-		exit (98);
-		return (1);
-	}
-	if (format != NULL)
-	{
-		while (format[i] != '\0')
+		j = 0, flag = 0;
+		if (format[i] == '%' && format[i + 1] == '\0')
+			exit(99);
+		if (format[i] == '%' && format[i + 1] == '%')
 		{
-			j = 0, flag = 0;
-			if (format[i] == '%' && format[i + 1] == '\0')
-			{
-				exit (99);
-				return (1);
-			}
-			if (format[i] == '%' && format[i + 1] == '%')
+			flag = 1;
+			printed += write(1, "%", 1);
+		}
+		while (j < 2)
+		{
+			if (format[i] == '%' && *op[j].key == format[i + 1])
 			{
 				flag = 1;
-				printed += write(1, "%", 1);
+				substr_len = op[j].f(&list);
+				printed += substr_len;
 			}
-			while (j < 2)
-			{
-				if (format[i] == '%' && *op[j].key == format[i + 1])
-				{
-					flag = 1;
-					substr_len = op[j].f(&list);
-					printed += substr_len;
-				}
-				j++;
-			}
-			if (flag != 1)
-			{
-				printed += write(1, &format[i], 1);
-				i++;
-			}
-			else
-				i = i + 2;
+			j++;
 		}
+		if (flag != 1)
+		{
+			printed += write(1, &format[i], 1);
+			i++;
+		}
+		else
+			i = i + 2;
 	}
 	va_end(list);
 	return (printed);
 }
+
