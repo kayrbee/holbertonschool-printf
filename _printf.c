@@ -57,7 +57,6 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 	{
 		exit(98);
-		return (1);
 	}
 	while (format[i] != '\0')
 	{
@@ -65,7 +64,6 @@ int _printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1] == '\0')
 		{
 			exit(99);
-			return (1);
 		}
 		if (format[i] == '%' && format[i + 1] == '%')
 		{
