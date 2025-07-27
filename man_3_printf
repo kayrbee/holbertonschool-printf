@@ -1,0 +1,49 @@
+.TH printf 3 "v1.0"
+
+.SH NAME
+_printf
+
+.SH LIBRARY
+.PP
+Custom I/O Library
+
+.SH SYNOPSIS
+.PP
+_printf
+.I FORMAT 
+.I [ARGUMENT] ...
+
+.SH DESCRIPTION
+.PP
+The
+.B _printf()
+function produces output according to a format string, similar to standard 
+.B printf() 
+function in C. It handles the
+.B %c
+, 
+.B %s
+, 
+.B %d
+, and 
+.B %i 
+format conversion specifiers.
+
+.SH RETURN VALUE
+.PP
+The number of characters printed (excluding the null byte).
+
+.SH EXAMPLES
+.B _printf("Hello, %s!", "world");
+.RS
+Prints: Hello, world!
+.RE
+
+.SH AUTHOR
+Written by the excellent Katherine Beringer, Dana Le, and Mel Harkin - go team!
+
+.SH REPORTING BUGS
+Find us on Holberton Slack!
+
+.SH SEE ALSO
+.BR printf(3)
