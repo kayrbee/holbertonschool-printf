@@ -38,7 +38,7 @@ _printf("Hello, %s!", "world");
 Prints: Hello, world!
 .RE
 
-_printf("Hello, world!\n");
+_printf("Hello, world!\\n");
 .RS
 Prints: Hello, world!
 .RE
