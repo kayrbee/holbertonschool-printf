@@ -1,0 +1,55 @@
+.TH PRINTF 3 "v1.0" "July 2025" "C Library Functions"
+
+.SH NAME
+_printf
+
+.SH LIBRARY
+Custom I/O Library
+
+.SH SYNOPSIS
+_printf
+int _printf(const char *format, ...);
+
+.SH DESCRIPTION
+The
+.B _printf()
+function produces output according to a format string. If the format string contains no conversion specifiers, it is printed directly as-is.
+
+If conversion specifiers are present, the corresponding arguments are formatted and inserted into the output according to the specifier used.
+
+The following conversion specifiers provide this framework:
+
+%c	prints a single character
+ 
+%s	prints a string of characters (expects a null-terminated array)
+
+%%	prints a percent sign
+
+%d	prints a signed decimal (base 10) number
+
+%i 	prints a signed integer (in base 10)
+
+.SH RETURN VALUE
+The number of characters printed (excluding the null byte used to end output to strings).
+
+.SH EXAMPLES
+_printf("Hello, %s!", "world");
+.RS
+Prints: Hello, world!
+.RE
+
+_printf("Hello, world!\\n");
+.RS
+Prints: Hello, world!
+.RE
+
+.SH AUTHORS
+Written by the excellent Katherine Beringer, Dana Le, and Mel Harkin - go team!
+
+.SH REPORTING BUGS
+Find us on Holberton Slack!
+
+.SH SEE ALSO
+.BR printf(3), 
+.BR puts(3), 
+.BR putchar(3)
